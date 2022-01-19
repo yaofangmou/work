@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="1" PartitionName="fastboot" FlashType="emmc" FileSystem="none" Start="0" Length="1M" SelectFile="fastboot.bin"/>
+<Part Sel="1" PartitionName="bootargs" FlashType="emmc" FileSystem="none" Start="1M" Length="1M" SelectFile="bootargs.bin"/>
+<Part Sel="1" PartitionName="kernel" FlashType="emmc" FileSystem="none" Start="2M" Length="10M" SelectFile="hi_kernel.bin"/>
+<Part Sel="1" PartitionName="rootfs" FlashType="emmc" FileSystem="ext3/4" Start="12M" Length="256M" SelectFile="rootfs_256M.ext4"/>
+<Part Sel="1" PartitionName="backup" FlashType="emmc" FileSystem="ext3/4" Start="268M" Length="700M" SelectFile=""/>
+<Part Sel="1" PartitionName="ubuntu" FlashType="emmc" FileSystem="ext3/4" Start="968M" Length="-" SelectFile="ubuntu-16-04.img"/>
+</Partition_Info>

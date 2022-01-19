@@ -1,0 +1,5 @@
+root:x:0:
+gstb:x:1000:cak,main,proxy
+gcak:x:1003:
+gmain:x:1002:
+gproxy:x:1001:

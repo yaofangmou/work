@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+mount -o remount,ro /
+chown main:gmain /sys/power/*
+chmod 0660 /sys/power/*

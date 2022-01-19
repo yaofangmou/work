@@ -1,0 +1,6 @@
+config  HI_VI_SUPPORT
+    bool "VI Support"
+    depends on !(HI3716MV430)
+    default n
+    help
+        video input for video phone case

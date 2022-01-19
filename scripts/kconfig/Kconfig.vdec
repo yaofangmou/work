@@ -1,0 +1,95 @@
+choice
+    prompt "VDEC Decoder Capability"
+    depends on HI3716MV430
+    default HI_VDEC_HD_FULL
+
+config  HI_VDEC_HD_SIMPLE
+    bool "H264,MPEG2,MPEG4 Only"
+    help
+        H264,MPEG2,MPEG4 Support.
+
+config  HI_VDEC_HD_BASIC
+    bool "H264,H265,MPEG2,MPEG4 Only"
+    help
+        H264,H265,MPEG2,MPEG4 Support.
+
+config  HI_VDEC_HD_FULL
+    bool "All Support"
+    help
+        h264/h265/mpeg2/mpeg4/avs/avs+/vp6/vp8/vc1/h263 Support
+
+endchoice
+
+config  HI_VDEC_DECODE_CAPABILITY
+    string
+    default "HD_FULL"             if HI_VDEC_HD_FULL
+    default "HD_SIMPLE"           if HI_VDEC_HD_SIMPLE
+    default "HD_BASIC"            if HI_VDEC_HD_BASIC
+
+config HI_VIDEO_MAX_REF_FRAME_NUM
+    int "Max Reference Frame Number(3-16)"
+    depends on (HI3716MV410 || HI3716MV420 || HI3716MV430 || HI3798MV100 || HI3796MV100)
+    range 3 16
+    default 6 if !HI3716MV430
+    default 4 if HI3716MV430
+    help
+        set Max reference frame number, ranges from 3 to 16
+
+config HI_VIDEO_MAX_DISP_FRAME_NUM
+    int "Max Display Frame Number(2-16)"
+    range 2 16
+    default 4 if !HI3716MV430
+    default 3 if HI3716MV430
+    help
+        set Max display frame number, ranges from 2 to 16
+
+config HI_VIDEO_EXTRA_PVR_FRAME_NUM
+    int "Extra Frame Number for PVR Fast Backward(0-25)"
+    range 0 25
+    depends on HI3716MV430
+    default 0
+    help
+        set extra frame number for PVR fast backward, ranges from 0 to 25
+
+config HI_VDEC_MJPEG_SUPPORT
+    bool "Motion JPEG Decoder Support"
+    default n
+    help
+        when enabled, Motion JPEG stream decoder is supported
+
+config HI_VDEC_USERDATA_CC_SUPPORT
+    bool "CC or AFD Support"
+    default y
+    help
+        when enabled, Closed Caption(CC) or Active Format Description(AFD) user data can be received
+
+config HI_VDEC_USERDATA_CC_BUFSIZE
+    hex "CC or AFD Buffer Size"
+    depends on HI_VDEC_USERDATA_CC_SUPPORT
+    range 0x4000 0x40000
+    default 0xC000
+    help
+        Closed Caption(CC) or Active Format Description(AFD) user data buffer size, recommend: 0xC000
+
+config HI_VDEC_SCD_BUFSIZE
+    hex "SCD Buffer Size (KB)"
+    depends on HI3716MV430
+    default 0x600
+    help
+        SCD buffer size
+
+config HI_VDEC_MAX_INSTANCE
+    int "Video Decoder Max Instance Number(1~8)"
+    depends on HI3716MV430
+    range 1 8
+    default 1 if !HI_MCE_SUPPORT
+    default 2 if HI_MCE_SUPPORT
+    help
+        It is necessarily set to bigger than 1 to support mce-fastpaly.
+
+config HI_VDEC_REG_CODEC_SUPPORT
+    depends on HI3716MV430
+    bool "External video decoder support"
+    default n
+    help
+        when enabled, external video decoder could be registered

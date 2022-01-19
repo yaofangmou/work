@@ -1,0 +1,7 @@
+#!/bin/sh
+mkdir /dev/shm
+chown -R root:gstb /dev/shm
+chmod -R -x /dev/shm
+mkdir /dev/mqueue
+chown -R root:gstb /dev/mqueue
+chmod -R -x /dev/mqueue

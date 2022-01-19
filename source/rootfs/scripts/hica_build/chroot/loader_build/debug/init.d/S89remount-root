@@ -1,0 +1,7 @@
+#!/bin/sh -e
+chmod 0666 /sys/power/state
+chown stb:stb /sys/block/mmcblk0/size
+chmod 0660 /sys/block/mmcblk0/size
+filecap /bin/sandbox sys_chroot
+
+mount -o remount,ro /

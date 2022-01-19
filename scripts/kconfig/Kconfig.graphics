@@ -1,0 +1,133 @@
+menu "Graphics Config"
+
+config HI_HIGO_SUPPORT
+    bool "HIGO Support"
+    default y
+    depends on LINUX_PRODUCT
+    help
+        The HiGo is a highly efficient graphics component provided by HiSilicon.
+        It makes full use of the acceleration function of chips and provides the basic
+        functions required for graphical user interface (GUI) development.
+
+
+menuconfig HI_DIRECTFB_SUPPORT
+    bool "DirectFB Support"
+    default y
+    depends on LINUX_PRODUCT
+
+config HI_DIRECTFB_MULTI_SUPPORT
+    bool "DirectFB Multi Process support"
+    default y
+    depends on HI_DIRECTFB_SUPPORT
+
+config HI_DIRECTFB_DEBUG_SUPPORT
+    bool "DirectFB Debug support"
+    help
+        enabled debug messages for development
+    default n
+    depends on HI_DIRECTFB_SUPPORT
+
+config HI_DIRECTFB_CA_SUPPORT
+    bool "DirectFB CA Support"
+    help
+        when enabled, DirectFB module is enhanced only in some specific security cases
+    default n
+    depends on HI_DIRECTFB_SUPPORT && HI_ADVCA_SUPPORT
+config HI_JPEG_MINI_SUPPORT
+    bool "support mini jpeg"
+    help
+        only support basic function for 8+128 system, and if conifg this can not support soft encode,
+        if need support more should close this setting.
+    default y
+    depends on HI3716MV430
+
+config HI_FREETYPE_MINI_SUPPORT
+    bool "support mini freetype"
+    help
+        only support basic function for 8+128 system, if need support more should close this setting.
+    default y
+    depends on HI3716MV430
+
+config HI_TDE_NODE_BUFFER_SIZE
+    hex "KB, Tde NodeBuf Size"
+    default 0x10000
+    help
+        Set the tde node buffer Size, 0x10000 support 42 node, if you want to support more, you can config more size,
+        For example: 0x20000 for 85 node.
+    depends on HI3716MV430
+
+config HI_GFX2D_SUPPORT
+    bool "GFX2D Support"
+    help
+        GFX2D module is used for 2D graphics accelerating
+    default y
+    depends on ANDROID_PRODUCT && (HI3798CV200 || HI3798MV200 || HI3798MV200H || HI3798MV300 || HI3798MV300H || HI3798MV310 || HI3796MV200 || HI3716MV450 || HI3716DV110H)
+
+config HI_FB0_SMMU_SUPPORT
+    bool
+    default n
+    depends on HI_SMMU_SUPPORT
+
+config HI_FB1_SMMU_SUPPORT
+    bool
+    default y
+    depends on HI_SMMU_SUPPORT
+
+config HI_FB2_SMMU_SUPPORT
+    bool
+    default y
+    depends on HI_SMMU_SUPPORT
+
+config HI_FB_CAPTURE_BMP_SUPPORT
+     bool "Capture ui to bmp picture"
+     default y
+     help
+        When the ui display has problem, you want to check whether the input ui is ok, open this config, and you can
+        capture input ui to bmp picture with "echo capture > /proc/msp/hifb0"
+     depends on HI3716MV430
+
+config HI_FB_STEREO_SUPPORT
+     bool "Stereo UI Support"
+     default y
+     help
+       If you want to display stereo ui, for example: side by side, top by bottom, framepacking, you need open this
+       Config.
+     depends on HI3716MV430
+config HI_FB_SCROLLTEXT_SUPPORT
+    bool "Scrolltext Support"
+    default y
+    depends on HI3716MV430
+
+config  HI_FB_DECOMPRESS_SUPPORT
+    bool "DeCompress in FB Support"
+    default y
+    depends on HI_GFX2D_SUPPORT
+    depends on HI3798CV200 || HI3798MV300 || HI3798MV300H || HI3798MV310 || HI3798MV200 || HI3798MV200H || HI3796MV200 || HI3716MV450 || HI3716DV110H
+
+config  HI_HD0_FB_VRAM_SIZE
+    int "KB, HD0 FrameBuffer Size"
+    default 7200
+    help
+        set the HD0 FrameBuffer Size, for example:
+            for 1280*720, double buffer, ARGB8888 format, the size is calculated as below:
+            (1280*720*4*2/1024)KB
+
+config  HI_HD1_FB_VRAM_SIZE
+    int "KB, HD1 FrameBuffer Size"
+    default 0
+    help
+        set the HD1 FrameBuffer Size, for example:
+            for 1280*720, double buffer, ARGB8888 format, the size is calculated as below:
+            (1280*720*4*2/1024)KB
+
+config  HI_HD2_FB_VRAM_SIZE
+    int "KB, HD2 FrameBuffer Size"
+    default 0
+    help
+        set the HD2 FrameBuffer Size, for example:
+            for 1280*720, double buffer, ARGB8888 format, the size is calculated as below:
+            (1280*720*4*2/1024)KB
+    depends on !(HI3716MV430)
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,0 +1,82 @@
+menu "Demux Config"
+    depends on !HI_NVR_SUPPORT
+
+config HI_DEMUX_SUPPORT
+    bool
+    default y
+
+config HI_DEMUX_POOLBUF_SIZE
+    hex "Poolbuf Size"
+    depends on HI_DEMUX_SUPPORT
+    default 0x200000
+    help
+        set buffer size of section, pes and post channel.
+
+config HI_DMX_TSBUF_MULTI_THREAD_SUPPORT
+    bool "Multithread operate one ts buffer support"
+    depends on HI_DEMUX_SUPPORT
+    default n
+    help
+        when enabled, HI_UNF_DMX_GetTSBuffer() and HI_UNF_DMX_PutTSBuffer() will be disabled
+        when enabled, HI_UNF_DMX_AcquireTSBuffer(), HI_UNF_DMX_PushTSBuffer() and HI_UNF_DMX_ReleaseTSBuffer() will be enabled.
+
+config HI_DEMUX_INVALID_PES_DROP_SUPPORT
+    bool "Drop invalid audio pes package support"
+    depends on HI_DEMUX_SUPPORT &&  ADVCA_IRDETO
+    default n
+    help
+       when enabled, invalid pes packages will be dropped
+
+config HI_DMX_DUP_PID_CHANNEL_SUPPORT
+    bool "Pid copy support"
+    depends on (HI_DEMUX_SUPPORT && (HI3796MV200 || HI3716MV450 || HI3798CV200 || HI3798MV200 || HI3798MV300))
+    default n if (HI3796MV200 || HI3716MV450 || HI3798MV200 || HI3798MV300)
+    default y if HI3798CV200
+    help
+        when enabled, Support pid copy
+
+config HI_DMX_PROC_SUPPORT
+    bool "Demux proc support"
+    depends on (HI_DEMUX_SUPPORT && HI3716MV430)
+    default y
+    help
+       when enabled, Support proc information
+
+config HI_DMX_DESCRAMBLER_SUPPORT
+    bool "Demux descrambler support"
+    depends on (HI_DEMUX_SUPPORT && HI3716MV430)
+    default y
+    help
+       when enabled, Support demux descrambler feature
+
+config HI_DMX_TSO_SUPPORT
+    bool "Demux tso support"
+    depends on (HI_DEMUX_SUPPORT && HI3716MV430)
+    default y
+    help
+       when enabled, Support demux tso port
+
+config HI_DMX_REC_SUPPORT
+    bool "Demux record support"
+    depends on (HI_DEMUX_SUPPORT && HI3716MV430)
+    default y
+    help
+       when enabled, Support ts record
+       when disabled, Not Support record interface, but use echo to record ts is still support
+
+config HI_DMX_REC_INDEX_SUPPORT
+    bool "Demux record index support"
+    depends on HI_DMX_REC_SUPPORT
+    default y
+    help
+       when enabled, Support ts record index feature,default suppor mpeg2, mpeg4, h264, hevc, avs index
+
+config HI_DMX_REC_INDEX_HEVC_SUPPORT
+    bool "Demux record hevc index support"
+    depends on HI_DMX_REC_INDEX_SUPPORT
+    default y
+    help
+       when enabled, support ts record hevc index feature
+       whed disable, only disable hevc index feature
+
+endmenu

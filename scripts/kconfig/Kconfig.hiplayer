@@ -1,0 +1,21 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menuconfig HI_PLAYER_SUPPORT
+    bool "HiPlayer Support"
+    default n
+    depends on LINUX_PRODUCT
+    select HI_CAPTION_SO_SUPPORT
+    select HI_OPENSSL_SUPPORT
+    select HI_CURL_SUPPORT
+    select HI_VDEC_REG_CODEC_SUPPORT if HI3716MV430
+
+#------------------------------------------------
+choice
+    prompt "HiPlayer Version"
+    depends on HI_PLAYER_SUPPORT
+    default HI_PLAYER_FULL_SUPPORT
+
+config  HI_PLAYER_FULL_SUPPORT
+    bool "HiPlayer Full Support"
+config  HI_PLAYER_NORMAL_SUPPORT
+    bool "HiPlayer Normal Support"
+endchoice

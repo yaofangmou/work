@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info ProgrammerFile="advca_programmer.bin">
+<Part Sel="1" PartitionName="fastboot" FlashType="spi" FileSystem="none" Start="0" Length="512K" SelectFile="fastboot.bin"/>
+<Part Sel="1" PartitionName="bootargs" FlashType="spi" FileSystem="none" Start="512K" Length="128K" SelectFile="bootargs.bin"/>
+<Part Sel="1" PartitionName="loaderdb" FlashType="spi" FileSystem="none" Start="640K" Length="128K" SelectFile=""/>
+<Part Sel="1" PartitionName="loaderdbback" FlashType="spi" FileSystem="none" Start="768K" Length="128K" SelectFile=""/>
+<Part Sel="1" PartitionName="loader" FlashType="spi" FileSystem="none" Start="896K" Length="256K" SelectFile=""/>
+<Part Sel="1" PartitionName="loaderbak" FlashType="spi" FileSystem="none" Start="1152K" Length="256K" SelectFile=""/>
+<Part Sel="1" PartitionName="pqparam" FlashType="spi" FileSystem="none" Start="1408K" Length="256K" SelectFile="pq_param.bin"/>
+<Part Sel="1" PartitionName="baseparam" FlashType="spi" FileSystem="none" Start="1664K" Length="128K" SelectFile="baseparam.img"/>
+<Part Sel="1" PartitionName="logo" FlashType="spi" FileSystem="none" Start="1792K" Length="256K" SelectFile="logo.img"/>
+<Part Sel="1" PartitionName="kernel" FlashType="spi" FileSystem="none" Start="2M" Length="6M" SelectFile="hi_kernel.bin"/>
+</Partition_Info>

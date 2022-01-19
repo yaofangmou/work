@@ -1,0 +1,30 @@
+menu "Cipher Config"
+    depends on HI3716MV430
+
+config  HI_CIPHER_MULTI_PACKGET_SUPPORT
+    bool "Support multi packet"
+    default n
+    help
+        when enabled, Support multi packet encrypt/decrypt
+
+config  HI_CIPHER_AES_CBCMAC_SUPPORT
+    bool "Support AES CMAC"
+    default n
+    help
+        when enabled, Support AES-CBC-MAC algorithm
+
+config  HI_CIPHER_HMAC_SUPPORT
+    bool "Support HMAC"
+    default n
+    help
+        when enabled, Support HAMC algorithm
+
+config HI_CIPHER_RSA_SUPPORT
+    bool "RSA Support"
+    default n
+    help
+        when enabled, Support RSA algorithm
+
+#+++++++++++++++++++++++++++++++++++++
+endmenu
+#+++++++++++++++++++++++++++++++++++++

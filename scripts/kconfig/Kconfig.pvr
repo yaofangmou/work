@@ -1,0 +1,71 @@
+menu "PVR Config"
+
+config HI_PVR_SUPPORT
+    bool "PVR Support"
+    default y
+
+config HI_PVR_EXTRA_BUF_SUPPORT
+    depends on HI_PVR_SUPPORT
+    bool "support optimizing the recording"
+    help
+        use Extra PVR Buffer to optimize the recording but it will increase memory consumption
+    default y
+
+config HI_PVR_EXTRA_TSBUF_SIZE
+    depends on (HI_PVR_EXTRA_BUF_SUPPORT && HI3716MV430)
+    int "Ts Buffer Size(KB)"
+    default 4136
+    help
+       Configure the size of extra TS buffer.This value is preferably an integer multiple of 188 and the minimum value is 940 KB 
+
+config HI_PVR_EXTRA_INDEX_CACHE_NUM
+    depends on (HI_PVR_EXTRA_BUF_SUPPORT && HI3716MV430)
+    int "Index Cache Size(The number of frames)"
+    default 3600
+    range 1200 7200
+    help
+       Configure the number of indexes in the cache,ranging from 1200 to 7200
+
+config HI_PVR_HEVC_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support the HEVC streams"
+    help
+        support the HEVC streams
+    default y
+
+config HI_PVR_PID_CHANGE_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support changing recorded PIDs dynamic"
+    help
+        Supports dynamically changing the recorded PIDs if selected
+    default y
+
+config HI_PVR_APPEND_RECORD_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support appending recording"
+    help
+        support appending the new recording data to the recorded file if selected
+    default y
+
+config HI_PVR_SWITCH_REWIND_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support switching timeshift to recording"
+    help
+        support dynamically switching rewind-record to non-rewind-record if selected
+    default y
+
+config HI_PVR_LINEARIZATION_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support linearizing the PVR recorded files"
+    help
+        support linearization the rewind files
+    default y
+
+config HI_PVR_POST_PROCESSING_SUPPORT
+    depends on (HI_PVR_SUPPORT && HI3716MV430)
+    bool "support post processing the recorded files"
+    help
+        support processing the recorded files, such as delete the file header or tail
+    default y
+
+endmenu

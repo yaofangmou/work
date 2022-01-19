@@ -1,0 +1,12 @@
+baudrate=115200
+ethaddr=00:00:00:00:00:00
+ipaddr=192.168.1.10
+netmask=255.255.255.0
+gatewayip=192.168.1.1
+serverip=192.168.1.1
+bootcmd=sf probe 0;sf read 0x1FFFFC0 0x200000 0x600000;bootm 0x1FFFFC0
+bootargs=mem=128M console=ttyAMA0,115200 root=/dev/romblock10 rootfstype=squashfs mtdparts=hi_sfc:512K(boot),128K(bootargs),128K(loaderdb),128K(loaderdbbak),256K(loader),256K(loaderbak),256K(pqparam),128K(baseparam),256K(logo),6M(kernel) mmz=ddr,0,0,78M
+bootdelay=0
+stdin=serial
+stdout=serial
+stderr=serial

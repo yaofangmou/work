@@ -1,0 +1,145 @@
+menu "Audio Config"
+
+config  HI_ADEC_MAX_INSTANCE
+    int "Maximum Audio Instances"
+    help
+        set Maximum number instances of audio play, available ranges from 1 to 8
+    depends on HI3716MV430
+    range 1 8
+    default 2
+
+menuconfig HI_AUDIO_OUTPUT_SUPPORT
+    bool "Audio Output Port"
+    default y
+
+config HI_SPDIF_SUPPORT
+    bool "SPDIF Support"
+    default y if !(HI3716MV430)
+    default n if (HI3716MV430)
+    depends on HI_AUDIO_OUTPUT_SUPPORT
+    help
+        when enabled, the kernel driver of SPDIF will be supported
+
+config HI_ADAC_SUPPORT
+    bool "ADAC Support"
+    default n
+    depends on HI_AUDIO_OUTPUT_SUPPORT
+    help
+        when enabled, the default kernel driver of ADAC (Audio Digital Analog Converter) will be supported
+
+config HI_AENC_SUPPORT
+    bool "AENC Support"
+    depends on !(HI3716MV430)
+    default y
+    help
+        when enabled, support audio encoder
+
+config HI_ADEC_AUDSPECTRUM_SUPPORT
+    bool "Audio Spectrum Support"
+    default n
+    help
+        when enabled, support audio spectrum
+
+config HI_AI_SUPPORT
+    bool "AI Support"
+    depends on !(HI3716MV430)
+    default n
+    help
+        when enabled, support audio input (for example, audio recorder)
+
+config HI_SND_SMARTVOLUME_SUPPORT
+    bool "Auto Volume Control Support"
+    default n
+    help
+        when enabled, adjust the audio volume automatically
+
+config HI_SND_HBRA_PASSTHROUGH_SUPPORT
+    bool "SND HBRA passthrough support"
+    default n if (HI3716MV410 || HI3716MV420 || HI3716MV430)
+    default y
+    help
+        when enabled, HBRA(TRUEHD DTSHD 7.1LPCM) passthrough is supported
+        when not enabled, the memory consuming can be reduced
+
+config HI_SND_PORT_DELAY_SUPPORT
+    bool "SND Port Delay Support"
+    default n
+    help
+        when enabled, the audio can be delayed in audio port intentional to sync the audio and video in the case when audio comes faster than video
+
+menuconfig HI_ADAC_CODEC_SUPPORT
+    bool "ADAC Codec Support"
+    depends on HI_ADAC_SUPPORT
+
+config HI_ADAC_SLIC_SUPPORT
+    bool "slic"
+    depends on HI_ADAC_CODEC_SUPPORT
+    help
+        when enabled, telephone audio driver is supported
+
+config HI_ADAC_TVL320AIC31_SUPPORT
+    bool "tlv320"
+    depends on HI_ADAC_CODEC_SUPPORT
+    help
+        when enabled, the driver of specific ADAC chip 'TVL320AIC31' can be supported
+
+config HI_ALSA_SUPPORT
+    bool "ALSA Support"
+    depends on !(HI_BLUETOOTH_SUPPORT)
+    default n
+    help
+        when enabled, ALSA (Advanced Linux Sound Architecture) is supported
+
+config HI_ALSA_LIB_SUPPORT
+    bool "ALSA Library Support"
+    depends on LINUX_PRODUCT && HI_ALSA_SUPPORT
+    default n
+    help
+        when enabled, the ALSA related libraries will be generated
+
+config HI_ALSA_DRIVER_SUPPORT
+    bool "ALSA Driver Support"
+    depends on HI_ALSA_SUPPORT
+    default n
+    help
+        when enabled, ALSA related driver will be compiled (into kernel or independent kernel module)
+
+config HI_SND_ALSA_AO_SUPPORT
+    bool "ALSA AO Support"
+    depends on HI_ALSA_DRIVER_SUPPORT
+    default n
+    help
+        when enabled, audio can be output by ALSA
+
+config HI_SND_ALSA_AI_SUPPORT
+    bool "ALSA AI Support"
+    depends on HI_ALSA_DRIVER_SUPPORT
+    default n
+    select HI_AI_SUPPORT
+    help
+        when enabled, audio can be input by ALSA
+
+config HI_AUDIO_RESAMPLER_SUPPORT
+    bool "Audio Resampler Support"
+    default n if LINUX_PRODUCT
+    default y if ANDROID_PRODUCT
+    help
+        when enabled, the resampler library will be generated
+
+config HI_SONIC_SUPPORT
+    bool "SONIC SUPPORT"
+    default n
+    help
+        when enabled, audio playback rate can be changed
+
+config HI_KARAOKE_SUPPORT
+    bool "Karaoke Support"
+    depends on ANDROID_PRODUCT
+    default y
+    select HI_AUDIO_RESAMPLER_SUPPORT
+    help
+        when enabled, the KARAOKE related libraries will be generated
+
+source "scripts/kconfig/Kconfig.hacodec"
+
+endmenu
